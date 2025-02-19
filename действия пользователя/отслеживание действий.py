@@ -18,15 +18,12 @@ def on_press(key):
 def stop_listener():
     global end_time
     end_time = datetime.now() + timedelta(minutes=1)
-    
     while True:
         if datetime.now() >= end_time:
             listener.stop()
             break
-
 # Запускаем поток для остановки слушателя через 1 минуту
 threading.Thread(target=stop_listener, daemon=True).start()
-
 # Запускаем слушатель клавиатуры
 with keyboard.Listener(on_press=on_press) as listener:
     listener.join()
